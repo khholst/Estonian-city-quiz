@@ -1,7 +1,6 @@
 let est_map;
 let cityTable;
 
-
 const extent = {
   west: 361587,
   east: 748049,
@@ -110,14 +109,12 @@ function setup() {
   nameBox.size(162, 30)
 
   //Get data from database
-  getLeaderboard()
+  getLeaderboard();
 
   indexesInit();
 
   getData()
   animationInit();
-
-
 }
 
 
@@ -126,8 +123,6 @@ function draw() {
   
   image(estMap, 0, 0);
   fill(255)
-
-
 
   mouseVect = createVector(mouseX, mouseY);
   timeRunning = millis();
@@ -669,7 +664,8 @@ function restartGame() {
 }
 
 function indexesInit() {
-  for (let i = 0; i < cityTable.getRowCount(); i++) {
+  //for (let i = 0; i < cityTable.getRowCount(); i++) {
+  for (let i = 0; i < 3; i++) {
     indexes.push(i)
   }
 }
