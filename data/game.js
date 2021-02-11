@@ -118,7 +118,6 @@ function setup() {
 }
 
 
-
 function draw() {
   
   image(estMap, 0, 0);
@@ -664,8 +663,7 @@ function restartGame() {
 }
 
 function indexesInit() {
-  //for (let i = 0; i < cityTable.getRowCount(); i++) {
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < cityTable.getRowCount(); i++) {
     indexes.push(i)
   }
 }
