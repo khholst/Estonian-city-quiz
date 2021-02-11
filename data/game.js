@@ -647,8 +647,10 @@ function restartGame() {
   indexesInit();
   getData();
   citiesLeft = cityTable.getRowCount();
+  booleans.countDown = true;
   booleans.gameIsOver = false;
   booleans.lastCity = false;
+  countDownStart = timeRunning;
 
   distances = [];
   times = [];
@@ -684,6 +686,7 @@ function countDown() {
     } else {
       noStroke();
       textSize(400);
+      textAlign(CENTER);
       fill(255, 255, 255, map(mapper, 0, 1000, 250, 0));
       text(5 - seconds, width / 2, 400);
     }

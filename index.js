@@ -17,7 +17,6 @@ app.get("/api", (request, response) => {
             response.end();
             return;
         }
-    console.log(response)
     response.json(data.sort((a, b) => b.finalScore - a.finalScore)
     .slice(0, 5));
     });
