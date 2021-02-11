@@ -157,7 +157,7 @@ function draw() {
       timeGuessed = (timeRunning - cityTimer) / 1000;
 
       if (timeGuessed < answerTime) {
-        animateRect(answerTime, cityTimer, 0, width, 0, height);
+        animateRect(answerTime, cityTimer, 0, width, 0, height, 8);
         main.drawCityNameAndTime();
       }
       
@@ -205,7 +205,7 @@ function draw() {
 
     if (timeGuessed > answerTime && timeGuessed < 9) { //Time over submenu is shown
       main.drawTimeOverResult()
-      animateRect(4, timeOver, width / 2 - 250, width / 2 + 250, height / 2 - 100, height / 2 + 100);
+      animateRect(4, timeOver, width / 2 - 250, width / 2 + 250, height / 2 - 100, height / 2 + 100, 3);
     }
  
 
@@ -337,7 +337,7 @@ class Main {
       strokeWeight(3);
       fill(255, 255, 255, 200);
       rect(width / 2, height / 2, 500, 200);
-      animateRect(4, timeClicked + 1500, width / 2 - 250, width / 2 + 250, height / 2 - 100, height / 2 + 100);
+      animateRect(4, timeClicked + 1500, width / 2 - 250, width / 2 + 250, height / 2 - 100, height / 2 + 100, 3);
 
       if (booleans.createNextButton) {
         createNextButton();

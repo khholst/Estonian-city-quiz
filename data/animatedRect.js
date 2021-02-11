@@ -6,7 +6,7 @@ let clickTime;
 
 
 
-function animateRect(time, timeMapper, xStart, xEnd, yStart, yEnd) {
+function animateRect(time, timeMapper, xStart, xEnd, yStart, yEnd, strokeW) {
   let timeElapsed = (timeRunning - timeMapper) / 1000
   
 
@@ -22,7 +22,7 @@ function animateRect(time, timeMapper, xStart, xEnd, yStart, yEnd) {
   hueCol = map(timeElapsed, 0, time, 125, 0)
   stroke(hueCol, 100, 100)
   colorMode(RGB)
-  strokeWeight(3)
+  strokeWeight(strokeW)
 
     if (xStartModified < xEnd || xStartModified === null) {
     xStartModified = map(timeElapsed, 0, timePerLongerSide, xStart, xEnd)
