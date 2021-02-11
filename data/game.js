@@ -685,13 +685,13 @@ function countDown() {
     let mapper = elapsedList[1].substring(0, 3);
 
 
-    if (2 - seconds === 0) {
+    if (5 - seconds === 0) {
       booleans.countDown = false;
     } else {
       noStroke();
       textSize(400);
       fill(255, 255, 255, map(mapper, 0, 1000, 250, 0));
-      text(2 - seconds, width / 2, 400);
+      text(5 - seconds, width / 2, 400);
     }
   }
 }
