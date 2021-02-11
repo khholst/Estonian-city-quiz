@@ -24,11 +24,8 @@ function animateRect(time, timeMapper, xStart, xEnd, yStart, yEnd) {
   colorMode(RGB)
   strokeWeight(3)
 
-  
-  
-  if (xStartModified < xEnd || xStartModified === null) {
+    if (xStartModified < xEnd || xStartModified === null) {
     xStartModified = map(timeElapsed, 0, timePerLongerSide, xStart, xEnd)
-    //print(xStartModified)
   } else {
     xStartModified = xEnd
   }
@@ -52,12 +49,6 @@ function animateRect(time, timeMapper, xStart, xEnd, yStart, yEnd) {
     line(xEnd, yStart, xEnd, yStartModified)
   }
 
-  
-  
-  
-  
-  
-
   if (xEndModified > xStart || xEndModified === null) {
 
     
@@ -69,21 +60,15 @@ function animateRect(time, timeMapper, xStart, xEnd, yStart, yEnd) {
   if (xEndModified < xStart && xEndModified != null) {
     xEndModified = xStart
   }
-  if (yStartModified === yEnd) {line(xEnd, yEnd, xEndModified, yEnd)}
+  if (yStartModified === yEnd) { line(xEnd, yEnd, xEndModified, yEnd) }
 
 
-  
-  
-  
-  
-  
-  
-  
   
   if (yEndModified > yStart || yEndModified === null) {
     if (xEndModified === xStart) {
       yEndModified = map(timeElapsed, 2 * timePerLongerSide + timePerShorterSide, 2 * timePerLongerSide + 2 * timePerShorterSide, yEnd, yStart)
     }
   }
-  if (xEndModified === xStart) {line(xStart, yEnd, xStart, yEndModified)}
+  if (yEndModified < yStart && !yEndModified === null) { yEndModified = yStart } 
+  if (xEndModified === xStart) { line(xStart, yEnd, xStart, yEndModified)}
 }
