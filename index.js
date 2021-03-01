@@ -44,10 +44,11 @@ function getScores(results) {
 }
 
 function postScore(client) {
-  app.post('/addscore', (req, res) => {
-    let score = req.body;
+  app.post('/addscore', (request, response) => {
+    let score = request.body;
     client.db("leaderboard").collection("EST city quiz").insertOne(score)
     .catch(console.error);
+    response.send("Skoor andmebaasis");
   });
 }
 

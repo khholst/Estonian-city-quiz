@@ -666,7 +666,7 @@ function restartGame() {
 }
 
 function indexesInit() {
-  for (let i = 0; i < cityTable.getRowCount(); i++) {
+  for (let i = 0; i < 2; i++) {
     indexes.push(i);
   }
 }
