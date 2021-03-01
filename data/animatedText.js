@@ -50,7 +50,6 @@ class Mover {
   }
 
 
-
   updatePosition() {
     this.position.add(this.velocity);
     this.velocity.add(this.acceleration)

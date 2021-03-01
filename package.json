@@ -9,9 +9,13 @@
   "author": "Karl H. Holst",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.21.1",
     "express": "^4.17.1",
     "git": "^0.1.5",
+    "https": "^1.0.0",
+    "mongodb": "^3.6.3",
     "nedb": "^1.8.0",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "request": "^2.88.2"
   }
 }

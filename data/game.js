@@ -84,6 +84,7 @@ let LeaderboardContent = [];
 
 
 function preload() {
+  getLeaderboard();
   estMap = loadImage("est.png");
   cityTable = loadTable("cities.txt", "csv");
   baloo = loadFont("Baloo2-Regular.ttf");
@@ -92,7 +93,7 @@ function preload() {
 
 function setup() {
   createCanvas(900, 595);
-  textFont(baloo)
+  textFont(baloo);
   pixelInMeters = (extent.east - extent.west) / width;
 
   citiesLeft = cityTable.getRowCount() + 1;
@@ -103,25 +104,23 @@ function setup() {
   startButton.position(width / 2 - 80, height - 170);
   startButton.mousePressed(startGame);
 
-  nameBox = createInput().attribute("placeholder", "Enter player's name")
-  nameBox.attribute("maxlength", "15")
-  nameBox.position(width / 2 - 80, height - 217)
-  nameBox.size(162, 30)
+  nameBox = createInput().attribute("placeholder", "Enter player's name");
+  nameBox.attribute("maxlength", "15");
+  nameBox.position(width / 2 - 80, height - 217);
+  nameBox.size(162, 30);
 
   //Get data from database
-  getLeaderboard();
 
   indexesInit();
 
-  getData()
+  getData();
   animationInit();
 }
 
 
 function draw() {
-  
   image(estMap, 0, 0);
-  fill(255)
+  fill(255);
 
   mouseVect = createVector(mouseX, mouseY);
   timeRunning = millis();
@@ -129,10 +128,8 @@ function draw() {
 
   main = new Main(xClicked, yClicked, color(255, 255, 255));
 
-
   main.startMenu();
   countDown();
-
 
   if (!booleans.gameIsOver && !booleans.startMenu && !booleans.countDown) {
     if (booleans.dropPins) {
@@ -198,12 +195,10 @@ function draw() {
     }
 
     if (timeGuessed > answerTime && timeGuessed < 9) { //Time over submenu is shown
-      main.drawTimeOverResult()
+      main.drawTimeOverResult();
       animateRect(4, timeOver, width / 2 - 250, width / 2 + 250, height / 2 - 100, height / 2 + 100, 3);
     }
  
-
-
     drawAverages();
 
     main.checkGameOver();
@@ -233,13 +228,12 @@ if (booleans.scoreToDB) {
     },
   };
 
-  fetch("/api", options)
-    .then(getLeaderboard());
+  fetch("/addscore", options)
+    .then(getLeaderboard())
 
-  //Display top score as animated text
+
+  //Display new score as animated text
   createTextPoints("Leaderboard", "header", 15, 120, 160);
-  const topScore = topScores[0];
-  
   const string = "Your score: " + score.finalScore;
   const textBox = baloo.textBounds(string, 250, 300, 80);
   const leftAlign = (width - textBox.w) / 2;
@@ -247,7 +241,6 @@ if (booleans.scoreToDB) {
   createTextPoints("Your score: " + score.finalScore, "content", leftAlign, 505, 80);
 
   //Create restart game button
-
   restartButton = createButton("RESTART GAME");
   restartButton.position(width / 2 - 80, height - 70);
   restartButton.mousePressed(restartGame);
@@ -303,13 +296,13 @@ class Main {
   }
 
   dropInputPin() {
-    animatedPin(this.inputX, this.inputY - 70, "red")
+    animatedPin(this.inputX, this.inputY - 70, "red");
   }
 
   dropCorrectPin(correctX, correctY) {
-    stroke(0, 255, 0)
+    stroke(0, 255, 0);
     yLerped = lerp(yLerped, correctY, 0.1);
-    animatedPin(correctX, yLerped - 70, "green")
+    animatedPin(correctX, yLerped - 70, "green");
   }
 
   drawCityNameAndTime() {
@@ -349,18 +342,18 @@ class Main {
   }
 
   drawTimeOverResult() {
-    rectMode(CENTER)
-    fill(255, 255, 255, 200)
-    stroke(0)
-    strokeWeight(3)
-    rect(width / 2, height / 2, 500, 200)
+    rectMode(CENTER);
+    fill(255, 255, 255, 200);
+    stroke(0);
+    strokeWeight(3);
+    rect(width / 2, height / 2, 500, 200);
 
-    fill(0)
-    strokeWeight(0)
-    textAlign(CENTER)
+    fill(0);
+    strokeWeight(0);
+    textAlign(CENTER);
     textSize(35);
-    text("Time over", width / 2, height / 2 - 25)
-    text("Score: 0", width / 2, height / 2 + 25)
+    text("Time over", width / 2, height / 2 - 25);
+    text("Score: 0", width / 2, height / 2 + 25);
   }
 
   getTime() {
@@ -374,26 +367,26 @@ class Main {
     score = timecoeff + distancecoeff; //Score calculation based on coefficents
 
     if (score < 0) {
-      score = 0
+      score = 0;
     } //Avoid below 0 scores
     scores.push(score); //
   }
 
 
   calculateDistance() {
-    mappedCityX = map(cityX, extent.north, extent.south, 0, height)
-    mappedCityY = map(cityY, extent.west, extent.east, 0, width)
+    mappedCityX = map(cityX, extent.north, extent.south, 0, height);
+    mappedCityY = map(cityY, extent.west, extent.east, 0, width);
 
-    distancePixels = dist(xClicked, yClicked, mappedCityY, mappedCityX)
+    distancePixels = dist(xClicked, yClicked, mappedCityY, mappedCityX);
     distanceKm = distancePixels * pixelInMeters / 1000;
-    distances.push(distanceKm)
+    distances.push(distanceKm);
   }
 
   calculateAverages() {
     let distanceSum = 0;
     let timeSum = 0;
     scoreSum = 0;
-    let listLength = distances.length
+    let listLength = distances.length;
     for (let distance of distances) {
       distanceSum += distance;
     }
@@ -413,13 +406,13 @@ class Main {
 
   drawDistanceRadius() {
     if (mappedCityX - yLerped < 5) {
-      strokeWeight(3)
+      strokeWeight(3);
       if (distanceKm < 10) {
         fill(0, 255, 0, 100);
-        stroke(0, 255, 0)
+        stroke(0, 255, 0);
       } else if (distanceKm < 100) {
         fill(255, 255, 0, 100);
-        stroke(255, 255, 0)
+        stroke(255, 255, 0);
       } else {
         fill(255, 0, 0, 100);
         stroke(255, 0, 0);
@@ -469,12 +462,12 @@ function startGame() {
     booleans.startMenu = false;
     
     countDownStart = timeRunning;
-    removeElements()
+    removeElements();
   }
 }
 
 function startLeaderBoard() {
-  rectMode(CORNER)
+  rectMode(CORNER);
 
   fill(150, 150, 150, 100);
   strokeWeight(3);
@@ -487,11 +480,11 @@ function startLeaderBoard() {
   rect(300, 120, width - 600, height - 355, 4);
 
   size += dir;
-  if (size === 45) { dir = -dir}
-  else if (size === 35) {dir = -dir}
+  if (size === 45) { dir = -dir }
+  else if (size === 35) { dir = -dir }
 
-  let fillCol = map(size, 35, 45, 150, 255)
-  let strokeCol = map(size, 35, 45, 50, 0)
+  let fillCol = map(size, 35, 45, 150, 255);
+  let strokeCol = map(size, 35, 45, 50, 0);
 
   textSize(size);
   textAlign(CENTER);
@@ -504,17 +497,16 @@ function startLeaderBoard() {
   //Leaderboard content
   if (booleans.topScoresReady) {
     let i = 148;
-    
     for (let score of topScores) {
-      i += 40
-      textSize(30)
-      strokeWeight(3)
-      stroke(0)
+      i += 40;
+      textSize(30);
+      strokeWeight(3);
+      stroke(0);
 
       if (score.playerName === playerName) { fill(0, 255, 0) }
       else { fill(255) }
 
-      text(score.playerName + "  " + score.finalScore, width / 2, i)
+      text(score.playerName + "  " + score.finalScore, width / 2, i);
     }
   }
 }
@@ -537,7 +529,7 @@ function endLeaderBoard() {
 
       fill(255, 255, 255);
       if (score.playerName === playerName) { fill(0, 255, 0) };
-      textAlign(CENTER)
+      textAlign(CENTER);
       text((i + 1) + ". " + score.playerName + ": " + score.finalScore, width / 2, height);
     }
   }
@@ -556,6 +548,16 @@ async function getLeaderboard() {
   //Get top scores from database
   const response = await fetch("/api");
   topScores = await response.json();
+  console.log(topScores)
+
+  //If new score made it to leaderboard
+  if (scoreSum > topScores[4].finalScore) {
+    const finalScore = Math.round(scoreSum);
+    topScores.splice(4, 1);
+    topScores.push({playerName, finalScore});
+    topScores.sort((a, b) => b.finalScore - a.finalScore);
+  }
+
   booleans.topScoresReady = true;
 }
 
@@ -609,13 +611,13 @@ function animatedPin(x, y, color) {
       if (color === "red") { stroke(75, 0, 0)}
       else if (color === "green") {stroke(0, 75, 0)}
     }
-    line(i * 0.63 + x - 12, xy, x + 12 - i * 0.63, xy)
+    line(i * 0.63 + x - 12, xy, x + 12 - i * 0.63, xy);
   }
-  noFill()
-  stroke(150)
+  noFill();
+  stroke(150);
   if (color === "red") { stroke(200, 0, 0)}
   else if (color === "green") { stroke(0, 200, 0) }
-  strokeWeight(2)
+  strokeWeight(2);
   triangle(x - 18, y - 5, x, y + 65, x + 18, y - 5)
 }
 
@@ -624,17 +626,16 @@ function createTextPoints(string, type, x, y, size) {
 
   if (type === "header") {
     options = {
-      sampleFactor: 0.2
+      sampleFactor: 0.1
     }
 
   } else if (type === "content") {
     options = {
-      sampleFactor: 0.2
-
-
+      sampleFactor: 0.15
     }
   }
-  let points = baloo.textToPoints(string, x, y, size, options)
+
+  let points = baloo.textToPoints(string, x, y, size, options);
   
   for (let i = 0; i < points.length; i++) {
     let pt = points[i];
@@ -666,7 +667,7 @@ function restartGame() {
 
 function indexesInit() {
   for (let i = 0; i < cityTable.getRowCount(); i++) {
-    indexes.push(i)
+    indexes.push(i);
   }
 }
 
@@ -679,7 +680,6 @@ function countDown() {
 
     let seconds = elapsedList[0];
     let mapper = elapsedList[1].substring(0, 3);
-
 
     if (5 - seconds === 0) {
       booleans.countDown = false;
