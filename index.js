@@ -1,12 +1,13 @@
 const express = require("express");
+const dotenv = require("dotenv");
 const app = express();
 
 app.listen(process.env.PORT || 3000);
 
-
 app.use(express.static("data"));
 app.use(express.json());
 
+dotenv.config();
 
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://khholst:Leaderboard28@leaderboard.xtdau.mongodb.net/Leaderboard?retryWrites=true&w=majority";
