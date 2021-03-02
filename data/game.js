@@ -11,7 +11,6 @@ const extent = {
 const answerTime = 5;
 let playerName = "";
 
-
 let booleans = {
   startMenu: true,
   countDown: false,
@@ -665,7 +664,7 @@ function restartGame() {
 }
 
 function indexesInit() {
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < cityTable.getRowCount(); i++) {
     indexes.push(i);
   }
 }
