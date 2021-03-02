@@ -120,6 +120,8 @@ function draw() {
   image(estMap, 0, 0);
   fill(255);
 
+  console.log(topScores)
+
   mouseVect = createVector(mouseX, mouseY);
   timeRunning = millis();
   timeSinceClick = ((timeRunning - timeClicked) / 1000);
@@ -214,7 +216,7 @@ function draw() {
 
 //Add player's name and score to DB
 if (booleans.scoreToDB) {
-
+  scoreSum += 70000
   let finalScore = Math.round(scoreSum);
   const score = {playerName, finalScore};
 
@@ -227,7 +229,7 @@ if (booleans.scoreToDB) {
   };
 
   fetch("/addscore", options)
-    .then(getLeaderboard())
+    .then(checkIfNewHighScore());
 
 
   //Display new score as animated text
@@ -542,20 +544,20 @@ function animatedLeaderBoard() {
   }
 }
 
-async function getLeaderboard() {
-  //Get top scores from database
+async function getLeaderboard() { //Get top scores from mongo
   const response = await fetch("/api");
   topScores = await response.json();
-  console.log(topScores)
 
-  //If new score made it to leaderboard
+  booleans.topScoresReady = true;
+}
+
+function checkIfNewHighScore(){
   if (scoreSum > topScores[4].finalScore) {
     const finalScore = Math.round(scoreSum);
     topScores.splice(4, 1);
     topScores.push({playerName, finalScore});
     topScores.sort((a, b) => b.finalScore - a.finalScore);
   }
-
   booleans.topScoresReady = true;
 }
 
@@ -649,6 +651,8 @@ function restartGame() {
   booleans.countDown = true;
   booleans.gameIsOver = false;
   booleans.lastCity = false;
+  booleans.topScoresReady = false;
+  booleans.scoreToDB = false;
   countDownStart = timeRunning;
 
   distances = [];
@@ -664,7 +668,7 @@ function restartGame() {
 }
 
 function indexesInit() {
-  for (let i = 0; i < cityTable.getRowCount(); i++) {
+  for (let i = 0; i < 2; i++) {
     indexes.push(i);
   }
 }
