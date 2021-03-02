@@ -32,8 +32,6 @@ app.get('/api', async (request, response) => {
     .limit(5)
 
   const results = await cursor.toArray();
-  console.log(JSON.stringify(results));
-
   response.send(JSON.stringify(results));
 });
 
@@ -44,7 +42,6 @@ app.post('/addscore', async (request, response) => {
   .catch(console.error);
   response.send("Skoor andmebaasis");
 });
-
 
 main().catch(console.error);
 

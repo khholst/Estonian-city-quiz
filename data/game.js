@@ -120,8 +120,6 @@ function draw() {
   image(estMap, 0, 0);
   fill(255);
 
-  console.log(topScores)
-
   mouseVect = createVector(mouseX, mouseY);
   timeRunning = millis();
   timeSinceClick = ((timeRunning - timeClicked) / 1000);
