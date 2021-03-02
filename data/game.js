@@ -214,7 +214,6 @@ function draw() {
 
 //Add player's name and score to DB
 if (booleans.scoreToDB) {
-  scoreSum += 70000
   let finalScore = Math.round(scoreSum);
   const score = {playerName, finalScore};
 
@@ -666,7 +665,7 @@ function restartGame() {
 }
 
 function indexesInit() {
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < cityTable.getRowCount(); i++) {
     indexes.push(i);
   }
 }
