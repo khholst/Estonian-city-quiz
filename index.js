@@ -16,7 +16,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function main(){
     try {
         await client.connect();
-        await getTopScoresFromAtlas(client);
+        //await getTopScoresFromAtlas(client);
 
     } catch(e) {
         console.error(e);
@@ -26,7 +26,7 @@ async function main(){
     }
 }
 
-async function getTopScoresFromAtlas(client) {
+/* async function getTopScoresFromAtlas(client) {
     const cursor = await client.db("leaderboard").collection("EST city quiz").find({})
     .sort({ finalScore: -1 })
     .limit(5);
@@ -35,14 +35,32 @@ async function getTopScoresFromAtlas(client) {
 
     getScores(results);
     postScore(client);
-}
+} */
 
 
-function getScores(results) {
-  app.get('/api', (request, response) => {
-    response.send(JSON.stringify(results));
-  });
-}
+//function getScores(results) {
+
+
+
+app.get('/api', async (request, response) => {
+
+  const cursor = await client.db("leaderboard").collection("EST city quiz").find({})
+    .sort({ finalScore: -1 })
+    .limit(5);
+
+  const results = await cursor.toArray();
+  console.log(JSON.stringify(results));
+
+  response.send(JSON.stringify(results));
+  //console.log(response.body);
+});
+
+
+
+
+//}
+
+
 
 function postScore(client) {
   app.post('/addscore', (request, response) => {
@@ -52,6 +70,11 @@ function postScore(client) {
     response.send("Skoor andmebaasis");
   });
 }
+
+/* app.get('/api', (request, response) => {
+  response.send(JSON.stringify(Math.random()));
+  console.log(response.body)
+}); */
 
 main().catch(console.error);
 

@@ -84,7 +84,6 @@ let LeaderboardContent = [];
 
 
 function preload() {
-  getLeaderboard();
   estMap = loadImage("est.png");
   cityTable = loadTable("cities.txt", "csv");
   baloo = loadFont("Baloo2-Regular.ttf");
@@ -110,7 +109,7 @@ function setup() {
   nameBox.size(162, 30);
 
   //Get data from database
-
+  getLeaderboard();
   indexesInit();
 
   getData();
