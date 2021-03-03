@@ -1,5 +1,5 @@
 {
-  "name": "citygame",
+  "name": "Estonian_city_quiz",
   "version": "1.0.0",
   "description": "Quiz of Estonian cities",
   "main": "index.js",
@@ -9,14 +9,9 @@
   "author": "Karl H. Holst",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "git": "^0.1.5",
-    "https": "^1.0.0",
-    "mongodb": "^3.6.3",
-    "nedb": "^1.8.0",
-    "node-fetch": "^2.6.1",
-    "request": "^2.88.2"
+    "mongodb": "^3.6.3"
   }
 }
